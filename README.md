@@ -202,7 +202,6 @@
 
 ```java
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Random;
 
 public class Sorting {
@@ -255,7 +254,7 @@ public class Sorting {
     // 쉘 정렬(Shell Sort)
     public static void Shell(int[] arr) {
         int gap = arr.length / 2;
-        
+
         while( gap > 0 ) {
             for( int i = gap; i < arr.length; i++ ) {
                 int temp = arr[i];
