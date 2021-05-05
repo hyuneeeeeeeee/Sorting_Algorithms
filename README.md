@@ -377,7 +377,7 @@ public class Sorting {
 
 #### 실행 결과
 
-![image-20210505173940650](C:\Users\juhy1\AppData\Roaming\Typora\typora-user-images\image-20210505173940650.png)
+![image](https://user-images.githubusercontent.com/80511341/117117571-aa793000-adca-11eb-8504-d6931d907fcd.png)
 
 
 
