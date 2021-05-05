@@ -365,7 +365,7 @@ public class Sorting {
         Random random = new Random();
 
         int n = random.nextInt(20);     // 배열 크기
-        if(n == 0)						// 배열의 크기가 0이라면 난수를 다시 불러온다
+        if(n == 0)			// 배열의 크기가 0이라면 난수를 다시 불러온다
             n = random.nextInt(20);
 
         Random(n);
