@@ -1,1 +1,172 @@
+import java.util.Arrays;
+import java.util.Random;
 
+public class Sorting {
+    // 버블 정렬(Bubble Sort)
+    public static void Bubble(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - 1; j++) {
+                if (arr[j] > arr[j + 1]) {      // 위의 원소가 아래의 원소보다 크면
+                    int temp = arr[j + 1];
+                    arr[j + 1] = arr[j];
+                    arr[j] = temp;              // 서로 자리를 바꾼다
+                }
+            }
+        }
+
+        System.out.println("버블 정렬 : ");
+        PrintArr(arr);
+    }
+
+    // 선택 정렬(Selection Sort)
+    public static void Selection(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) { // arr.length - 1 : 마지막 요소는 자연스럽게 정렬됨
+           int min = i;        // A[i]를 최솟값으로 놓는다
+            for (int j = i + 1; j < arr.length; j++) // A[i] ~ A[n - 1]에서 최솟값을 찾는다
+                if (arr[min] > arr[j])
+                    min = j;
+            int temp = arr[min];
+            arr[min] = arr[i];
+            arr[i] = temp;                  // for 루프에서 찾은 최솟값 A[min]을 A[i]와 교환
+        }
+
+        System.out.println("선택 정렬 : ");
+        PrintArr(arr);
+    }
+
+    // 삽입 정렬(Insertion Sort)
+    public static void Insertion(int[] arr) {
+        int j = 0;
+        for (int i = 1; i < arr.length; i++) {
+            int temp = arr[i];      // 정렬 안 된 부분의 가장 왼쪽 원소
+            for (j = i - 1; j >= 0 && temp < arr[j]; j--)
+                arr[j + 1] = arr[j];
+            arr[j + 1] = temp;
+        }
+
+        System.out.println("삽입 정렬 : ");
+        PrintArr(arr);
+    }
+
+    // 쉘 정렬(Shell Sort)
+    public static void Shell(int[] arr) {
+        int gap = arr.length / 2;
+
+        while( gap > 0 ) {
+            for( int i = gap; i < arr.length; i++ ) {
+                int temp = arr[i];
+                int j = i;
+                while( j >= gap && arr[j - gap] > temp ) {
+                    arr[j] = arr[j - gap];
+                    j -= gap;
+                }
+                arr[j] = temp;
+            }
+            gap /= 2;
+        }
+
+        System.out.println("쉘 정렬 : ");
+        PrintArr(arr);
+    }
+
+    // 랜덤으로 입력된 배열
+    public static void Random(int n){
+        int[] R = init(n);
+        System.out.println("랜덤 배열 : ");
+        PrintArr(R);
+        Bubble(R);
+        Selection(R);
+        Insertion(R);
+        Shell(R);
+        System.out.println();
+    }
+
+    // 랜덤 배열 초기화
+    public static int[] init(int n) {
+        Random random = new Random();
+
+        int[] arr = new int [n];
+
+        for (int i = 0; i < n; i++)
+            arr[i] = random.nextInt(100);
+
+        return arr;
+    }
+
+    // 오름차순 정렬된 배열을 순서를 살짝만 바꿔줌
+    public static void Asc(int n){
+        int[] Asc = init(n);
+        Arrays.sort(Asc);       // 오름차순 정렬
+
+        Shuffle(Asc);
+        System.out.println("이미 오름차순 정렬된 데이터에서 순서가 조금 바뀐 배열 : ");
+        PrintArr(Asc);
+        Bubble(Asc);
+        Selection(Asc);
+        Insertion(Asc);
+        Shell(Asc);
+        System.out.println();
+    }
+
+    // 배열 섞기
+    public static int[] Shuffle(int[] arr){
+        int r1, r2;
+        int temp;
+        // 정렬된 배열 크기의 10퍼센트만 데이터를 바꿔준다
+        for(int i = 0; i < arr.length * 0.1; i++){
+            // for문이 돌아갈 때마다 배열 크기의 범위에서 랜덤으로 바뀌는 난수
+            r1 = (int)(Math.random() * arr.length);
+            r2 = (int)(Math.random() * arr.length);
+
+            temp = arr[r1];
+            arr[r1] = arr[r2];
+            arr[r2] = temp;
+        }
+
+        return arr;
+    }
+
+    // 내림차순 정렬된 배열
+    public static void Desc(int n){
+        int[] Desc = init(n);
+
+        for(int i = 0; i < Desc.length; i++)
+            for(int j = i + 1; j < Desc.length; j++){
+                if(Desc[i] < Desc[j]){
+                    int temp = Desc[j];
+                    Desc[j] = Desc[i];
+                    Desc[i] = temp;
+
+                }
+                else
+                    break;
+            }
+
+        System.out.println("내림차순 정렬된 배열 : ");
+        PrintArr(Desc);
+        Bubble(Desc);
+        Selection(Desc);
+        Insertion(Desc);
+        Shell(Desc);
+        System.out.println();
+    }
+
+    // 배열 출력
+    public static void PrintArr(int[] arr){
+        for(int i = 0; i < arr.length; i++)
+            System.out.print(arr[i] + "\t");
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Random random = new Random();
+
+        int n = random.nextInt(20);     // 배열 크기
+        if(n == 0)						      // 배열의 크기가 0이라면 난수를 다시 불러온다
+            n = random.nextInt(20);
+
+        Random(n);
+        Asc(n);
+        Desc(n);
+    }
+}
